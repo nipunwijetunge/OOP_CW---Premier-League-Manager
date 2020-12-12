@@ -1,6 +1,9 @@
 package com.premierLeague.PremierLeagueManager;
 
+import com.premierLeague.GUI.GUI;
 import com.premierLeague.PremierLeagueClubs.FootballClub;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +15,9 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class ConsoleApplication {
+public class ConsoleApplication extends Application {
+    static GUI gui = new GUI();
+
     static LeagueManager PLManager = PremierLeagueManager.getInstance();
 
     final static Scanner USER_INPUT = new Scanner(System.in);
@@ -20,7 +25,8 @@ public class ConsoleApplication {
     static File PLFootballClubs = new File("PLFootballClubs.txt");
     static File PLMatches = new File("PLMatches.txt");
 
-    public static void main (String[]args) {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         try {
             PLManager.loadData(PLFootballClubs, PLMatches);
             System.out.println("data has been successfully loaded!");
@@ -52,9 +58,12 @@ public class ConsoleApplication {
                         addAPlayedMatch();
                         break;
                     case 6:
-                        PLManager.saveData(PLFootballClubs, PLMatches);
+                        gui.gui();
                         break;
                     case 7:
+                        PLManager.saveData(PLFootballClubs, PLMatches);
+                        break;
+                    case 8:
                         System.out.println("Program is exiting...");
                         break menu;
                     default:
@@ -71,6 +80,10 @@ public class ConsoleApplication {
         }
     }
 
+    public static void main (String[]args) {
+        launch();
+    }
+
     private static void menu() {
         System.out.println("\n***************** Welcome to Premier League *****************");
         System.out.println("Select an Option,");
@@ -79,8 +92,9 @@ public class ConsoleApplication {
         System.out.println("'3' Display various statistics about a selected football club.");
         System.out.println("'4' Display Premier League table.");
         System.out.println("'5' Add a played match.");
-        System.out.println("'6' Save data into a file.");
-        System.out.println("'7' Exit the program.");
+        System.out.println("'6' Open GUI");
+        System.out.println("'7' Save data into a file.");
+        System.out.println("'8' Exit the program.");
     }
 
     private static void createFootballClubAndAddToPL() {

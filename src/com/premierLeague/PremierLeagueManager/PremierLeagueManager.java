@@ -1,13 +1,19 @@
 package com.premierLeague.PremierLeagueManager;
 
 import com.premierLeague.PremierLeagueClubs.FootballClub;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PremierLeagueManager implements LeagueManager {
+public class PremierLeagueManager implements LeagueManager{
 
     private static PremierLeagueManager instance = null;
 
@@ -16,6 +22,8 @@ public class PremierLeagueManager implements LeagueManager {
 
     //this list holds the information of all entered played matches in the League
     private final List<Match> matchList = new ArrayList<>();
+
+    private final List<Match> randomMatchList = new ArrayList<>();
 
     private PremierLeagueManager() {
     }
@@ -262,5 +270,13 @@ public class PremierLeagueManager implements LeagueManager {
 
         matchInputStream.close();
         matchOIS.close();
+    }
+
+    public List<FootballClub> getFootballClubList() {
+        return footballClubList;
+    }
+
+    public List<Match> getMatchList() {
+        return matchList;
     }
 }
