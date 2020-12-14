@@ -1,12 +1,13 @@
 package com.premierLeague.PremierLeagueManager;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
 /*this class holds all information about each played match of Premier League entered to the system*/
 
-public class Match implements Serializable {
+public class Match implements Serializable , Comparable<Match>{
     private String team1;
     private String team2;
     private int team1Score;
@@ -53,8 +54,9 @@ public class Match implements Serializable {
         this.team2Score = team2Score;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat.format(date);
     }
 
     public void setDate(Date date) {
@@ -87,5 +89,10 @@ public class Match implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(team1, team2, team1Score, team2Score, date);
+    }
+
+    @Override
+    public int compareTo(Match o) {
+        return date.compareTo(o.date);
     }
 }
